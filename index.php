@@ -16,22 +16,24 @@
 	    $products['iPhone']=1000;
 	    $products['Toaster']=75;
 
-      function tax_calc($amount,$tax){
-        $calculate_tax = $amount*$tax;
-        $amount = round($amount+$calculate_tax,2);
-        return $amount;
-      }
+      $taxRate=0.0825;
 
-      echo tax_calc(750,0.223); // When you refresh your page you should the value 917.25 at the bottom of the screen. 
+      function tax_calc($amount,$tax){
+	    	$addedTax = $amount*$tax;
+	    	$amountWithTax = round($amount+$addedTax,2);
+	    	return $amountWithTax;
+    	}
 
 	    foreach($products as $key => $value){
-		    echo "<p>The ".$key." costs ".$value."</p>";
+	    	$costWithTax = tax_calc($value,$taxRate);
+		    echo "<p>The ".$key." costs ".$costWithTax." with tax</p>";
 	    }
 
 	    echo "<h2>Items you can afford</h2>";
 
 	    foreach($products as $key => $value){
-		    if($value <= $credit ){
+	    	$costWithTax = tax_calc($value,$taxRate);
+		    if($costWithTax <= $credit ){
 		    	echo "<p>".$key."</p>"; 
 		    }
 	    }
